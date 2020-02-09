@@ -1,0 +1,30 @@
+<ng-container *ngIf="quiz && questions">
+	<div class="row">
+		<div class="col-sm-3 offset-sm-9">
+			<div>
+				<br><br>
+				<span>Playing : {{quiz.name}}</span><br>
+				<span>Question : {{numberOfQuestion + 1}}</span><br>
+				<span>Points : {{score}}</span><br>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<question [question]="questions[numberOfQuestion]" (eventEmmiter)="addPoints($event)">
+			</question>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-right">
+				<button class="btn btn-primary" (click)="nextQuestion()"
+					*ngIf="numberOfQuestion < 10">Next&nbsp;Question</button>
+				<a routerLink="/play-quiz" class="btn btn-primary" *ngIf="numberOfQuestion >= 10">Next&nbsp;Quiz</a>
+				<a routerLink="/" class="btn btn-primary">Change&nbsp;Quiz</a>
+			</div>
+		</div>
+	</div>
+</ng-container>

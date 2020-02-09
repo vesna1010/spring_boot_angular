@@ -1,0 +1,114 @@
+<br><br>
+<div *ngIf="!question || !quizzes" class="text-center text-white">Loading data. Please wait...</div>
+
+<div *ngIf="question && quizzes">
+	<form #questionForm="ngForm">
+		<div class="form-group row">
+			<label for="text" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">TEXT</label>
+			<div class="col-sm-6">
+				<input type="text" id="text" name="text" #text="ngModel" required pattern="^[a-zA-z\s]{5,}$"
+					[(ngModel)]="question.text" class="form-control">
+				<div [hidden]="text.valid || text.pristine" class="text-danger">
+					<span [hidden]="!text.hasError('required')">Please&nbsp;enter&nbsp;a&nbsp;text</span> <span
+						[hidden]="!text.hasError('pattern')">This&nbsp;is&nbsp;not&nbsp;a&nbsp;valid&nbsp;text</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="answerA" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">ANSWER A</label>
+			<div class="col-sm-6">
+				<input type="text" id="answerA" name="answerA" #answerA="ngModel" required
+					[(ngModel)]="question.answerA" class="form-control">
+				<div [hidden]="answerA.valid || answerA.pristine" class="text-danger">
+					<span [hidden]="!answerA.hasError('required')">Please&nbsp;enter&nbsp;a&nbsp;answerA</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="answerB" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">ANSWER B</label>
+			<div class="col-sm-6">
+				<input type="text" id="answerB" name="answerB" #answerB="ngModel" required
+					[(ngModel)]="question.answerB" class="form-control">
+				<div [hidden]="answerB.valid || answerB.pristine" class="text-danger">
+					<span [hidden]="!answerB.hasError('required')">Please&nbsp;enter&nbsp;a&nbsp;answerB</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="answerC" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">ANSWER C</label>
+			<div class="col-sm-6">
+				<input type="text" id="answerC" name="answerC" #answerC="ngModel" required
+					[(ngModel)]="question.answerC" class="form-control">
+				<div [hidden]="answerC.valid || answerC.pristine" class="text-danger">
+					<span [hidden]="!answerC.hasError('required')">Please&nbsp;enter&nbsp;a&nbsp;answerC</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="answerD" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">ANSWER D</label>
+			<div class="col-sm-6">
+				<input type="text" id="answerD" name="answerD" #answerD="ngModel" required
+					[(ngModel)]="question.answerD" class="form-control">
+				<div [hidden]="answerD.valid || answerD.pristine" class="text-danger">
+					<span [hidden]="!answerD.hasError('required')">Please&nbsp;enter&nbsp;a&nbsp;answerD</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="correctAnswer" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">CORRECT
+				ANSWER</label>
+			<div class="col-sm-6">
+				<select id="correctAnswer" name="correctAnswer" #correctAnswer="ngModel" required
+					[(ngModel)]="question.correctAnswer" class="form-control">
+					<option *ngFor="let answer of Answer | toArray : 'string'" [value]="answer">{{answer}}
+					</option>
+				</select>
+				<div [hidden]="correctAnswer.valid || correctAnswer.pristine" class="text-danger">
+					<span
+						[hidden]="!correctAnswer.hasError('required')">Please&nbsp;select&nbsp;a&nbsp;correctAnswer</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="quiz" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">QUIZ</label>
+			<div class="col-sm-6">
+				<select id="quiz" name="quiz" #quiz="ngModel" [(ngModel)]="question.quiz" class="form-control">
+					<option *ngFor="let quiz of quizzes" [ngValue]="quiz">{{quiz.name}}</option>
+				</select>
+				<div [hidden]="quiz.valid || quiz.pristine" class="text-danger">
+					<span [hidden]="!quiz.hasError('required')">Please&nbsp;select&nbsp;a&nbsp;quiz</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="points" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">POINTS</label>
+			<div class="col-sm-6">
+				<select id="points" name="points" #points="ngModel" [(ngModel)]="question.points" class="form-control">
+					<option *ngFor="let points of Points | toArray : 'number'" [value]="points">{{points}}
+					</option>
+				</select>
+				<div [hidden]="points.valid || points.pristine" class="text-danger">
+					<span [hidden]="!points.hasError('required')">Please&nbsp;select&nbsp;points</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 offset-sm-4">
+			<div class="btn-group" role="group">
+				<button type="submit" class="btn btn-primary" *ngIf="!question.id" [disabled]="questionForm.invalid"
+					(click)="saveQuestion()">Save</button>
+				<button type="submit" class="btn btn-secondary" *ngIf="question.id" [disabled]="questionForm.invalid"
+					(click)="updateQuestion()">Update</button>
+				<button type="reset" class="btn btn-light">Reset</button>
+			</div>
+		</div>
+
+	</form>
+</div>

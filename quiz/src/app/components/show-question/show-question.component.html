@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-sm-12">
+		<br> <br>
+		<h3 class="text-center text-white" id="questionText">{{question.text}}</h3>
+	</div>
+</div>
+
+<div class="row">
+	<br> <br> <br>
+	<div class="col-sm-4 offset-sm-2">
+		<div class="answer" id="A" (click)="checkAnswer(Answer.A)">
+			<span class="float-left">A</span>
+			<div class="text-center">{{question.answerA}}</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="answer" id="B" (click)="checkAnswer(Answer.B)">
+			<span class="float-left">B</span>
+			<div class="text-center">{{question.answerB}}</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<br> <br> <br>
+	<div class="col-sm-4 offset-sm-2">
+		<div class="answer" id="C" (click)="checkAnswer(Answer.C)">
+			<span class="float-left">C</span>
+			<div class="text-center">{{question.answerC}}</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="answer" id="D" (click)="checkAnswer(Answer.D)">
+			<span class="float-left">D</span>
+			<div class="text-center">{{question.answerD}}</div>
+		</div>
+	</div>
+</div>

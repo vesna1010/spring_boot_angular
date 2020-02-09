@@ -1,0 +1,58 @@
+<div class="row">
+	<div class="col-sm-10 offset-sm-1">
+		<br><br>
+		<a class="btn btn-success" routerLink="/questions/form">Add Question</a>
+		<a class="btn btn-primary" routerLink="/quizzes">Quizzes</a>
+		<a class="btn btn-primary" routerLink="/play">Play Quiz</a>
+
+		<table tableStyle>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>TEXT</th>
+					<th>ANSWER A</th>
+					<th>ANSWER B</th>
+					<th>ANSWER C</th>
+					<th>ANSWER D</th>
+					<th>CORRECT ANSWER</th>
+					<th>QUIZ NAME</th>
+					<th>POINTS</th>
+					<th>MANAGE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngIf="!page">
+					<td colspan="10" class="text-center">Loading data. Please wait...</td>
+				</tr>
+				<tr *ngIf="page && page.content.length === 0">
+					<td colspan="10" class="text-center">No Data</td>
+				</tr>
+				<ng-container *ngIf="page && page.content.length">
+					<tr *ngFor="let question of page.content">
+						<td>{{question.id}}</td>
+						<td>{{question.text}}</td>
+						<td>{{question.answerA}}</td>
+						<td>{{question.answerB}}</td>
+						<td>{{question.answerC}}</td>
+						<td>{{question.answerD}}</td>
+						<td>{{question.correctAnswer}}</td>
+						<td>{{question.quiz.name}}</td>
+						<td>{{question.points}}</td>
+						<td>
+							<button type="button" class="btn btn-primary"
+								(click)="findQuestionById(question.id)">Edit</button>
+							<button type="button" class="btn btn-danger"
+								(click)="deleteQuestionById(question.id)">Delete</button>
+						</td>
+					</tr>
+				</ng-container>
+			</tbody>
+		</table>
+
+		<div *ngIf="page && page.content.length">
+			<br><br>
+			<pagination [page]="page" [url]="'/questions'"></pagination>
+		</div>
+
+	</div>
+</div>

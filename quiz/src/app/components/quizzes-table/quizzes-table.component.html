@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-sm-10 offset-sm-1">
+		<br><br>
+		<a class="btn btn-success" routerLink="/quizzes/form">Add Quiz</a>
+		<a class="btn btn-primary" routerLink="/questions">Questions</a>
+		<a class="btn btn-primary" routerLink="/play">Play Quiz</a>
+
+		<table tableStyle>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>MANAGE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngIf="!quizzes">
+					<td colspan="3" class="text-center">Loading data. Please wait...</td>
+				</tr>
+				<tr *ngIf="quizzes && quizzes.length === 0">
+					<td colspan="3" class="text-center">No Data</td>
+				</tr>
+				<ng-container *ngIf="quizzes && quizzes.length">
+					<tr *ngFor="let quiz of quizzes">
+						<td>{{quiz.id}}</td>
+						<td>{{quiz.name}}</td>
+						<td>
+							<button type="button" class="btn btn-primary" (click)="findQuizById(quiz.id)">Edit</button>
+							<button type="button" class="btn btn-danger"
+								(click)="deleteQuizById(quiz.id)">Delete</button>
+						</td>
+					</tr>
+				</ng-container>
+			</tbody>
+		</table>
+	</div>
+</div>

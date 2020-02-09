@@ -1,0 +1,21 @@
+<br><br>
+<div *ngIf="!quizzes" class="text-center text-white">Loading data. Please wait...</div>
+
+<div *ngIf="quizzes && !quizzes.length" class="text-center text-white">There is no quizzes for play.</div>
+
+<div class="row" *ngIf="quizzes && quizzes.length">
+	<div class="col-sm-12">
+		<br> <br>
+		<h3 class="text-center text-white">Choose&nbsp;quiz&nbsp;to&nbsp;play:</h3>
+		<br><br>
+		<form class="form-inline justify-content-center" (submit)="setQuiz()">
+			<div class="form-group">
+				<select id="quiz" name="quiz" [(ngModel)]="quiz" class="form-control">
+					<option *ngFor="let quiz of quizzes" [ngValue]="quiz">{{quiz.name}}</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary" [disabled]="!quiz">Play</button>
+		</form>
+
+	</div>
+</div>
