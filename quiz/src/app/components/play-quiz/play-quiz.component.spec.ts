@@ -74,11 +74,6 @@ describe('PlayQuizComponentTest', () => {
 	}));
 
 	it('should add points', () => {
-		component.questions = [{
-			id: 1, text: 'Question A', answerA: 'Answer A', answerB: 'Answer B',
-			answerC: 'Answer C', answerD: 'Answer D', correctAnswer: Answer.A, points: Points.TEN, quiz: { id: 1, name: 'Quiz' }
-		}];
-
 		component.addPoints(10);
 
 		expect(component.score).toEqual(10);
