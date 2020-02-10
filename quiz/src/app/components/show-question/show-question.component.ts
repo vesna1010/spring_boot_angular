@@ -10,7 +10,7 @@ import { Answer } from 'src/app/enums/answer';
 export class ShowQuestionComponent implements OnChanges {
 	Answer = Answer;
 	@Input() question: IQuestion;
-	@Output() eventEmmiter: EventEmitter<string> = new EventEmitter<string>();
+	@Output() eventEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
 	checkAnswer(answer: Answer): void {
 		if (this.isCorrectAnswer(answer)) {
@@ -34,7 +34,7 @@ export class ShowQuestionComponent implements OnChanges {
 		answerElement.classList.add('bg-success');
 
 		this.question.text = 'CORRECT';
-		this.eventEmmiter.emit('CORRECT');
+		this.eventEmmiter.emit(this.question.points);
 	}
 
 	private setIncorrectResult(answer: Answer): void {

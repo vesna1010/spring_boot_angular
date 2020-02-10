@@ -79,7 +79,7 @@ describe('PlayQuizComponentTest', () => {
 			answerC: 'Answer C', answerD: 'Answer D', correctAnswer: Answer.A, points: Points.TEN, quiz: { id: 1, name: 'Quiz' }
 		}];
 
-		component.addPoints('CORRECT');
+		component.addPoints(10);
 
 		expect(component.score).toEqual(10);
 	});

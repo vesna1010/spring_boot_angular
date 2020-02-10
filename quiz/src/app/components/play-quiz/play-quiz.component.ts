@@ -29,10 +29,8 @@ export class PlayQuizComponent implements OnInit {
 			});
 	};
 
-	addPoints(message: string): void {
-		if (message === 'CORRECT') {
-			this.score += this.questions[this.numberOfQuestion].points;
-		}
+	addPoints(points: number): void {
+		this.score += points;
 	}
 
 	nextQuestion(): void {

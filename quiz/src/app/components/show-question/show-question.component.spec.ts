@@ -70,8 +70,8 @@ describe('ShowQuestionComponentTest', () => {
 		});
 		spyOn(document, 'querySelectorAll').and.returnValue([answerAElement, answerBElement, answerCElement, answerDElement]);
 
-		component.eventEmmiter.subscribe((answer: string) => {
-			expect(answer).toEqual('CORRECT');
+		component.eventEmmiter.subscribe((points: number) => {
+			expect(points).toEqual(10);
 		});
 
 		component.checkAnswer(Answer.A);
