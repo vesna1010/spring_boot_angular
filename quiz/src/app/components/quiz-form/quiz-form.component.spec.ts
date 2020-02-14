@@ -18,7 +18,7 @@ describe('QuizFormComponentTest', () => {
 	let activatedRoute: ActivatedRoute;
 	let router: Router;
 
-	beforeEach(() => {
+	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule, FormsModule, RouterTestingModule],
 			declarations: [QuizFormComponent],
@@ -28,7 +28,7 @@ describe('QuizFormComponentTest', () => {
 				}
 			}]
 		}).compileComponents();
-	});
+	}));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(QuizFormComponent);

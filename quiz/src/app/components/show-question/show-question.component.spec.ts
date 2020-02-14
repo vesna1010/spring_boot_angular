@@ -1,5 +1,5 @@
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ShowQuestionComponent } from './show-question.component';
 import { Answer } from 'src/app/enums/answer';
@@ -10,11 +10,11 @@ describe('ShowQuestionComponentTest', () => {
 	let component: ShowQuestionComponent;
 	let debugElement: DebugElement;
 
-	beforeEach(() => {
+	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			declarations: [ShowQuestionComponent]
 		}).compileComponents();
-	});
+	}));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ShowQuestionComponent);

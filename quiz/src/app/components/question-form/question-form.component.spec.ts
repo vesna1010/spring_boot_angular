@@ -23,7 +23,7 @@ describe('QuestionFormComponentTest', () => {
 	let activatedRoute: ActivatedRoute;
 	let router: Router;
 
-	beforeEach(() => {
+	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule, FormsModule, RouterTestingModule],
 			declarations: [QuestionFormComponent, ToArrayPipe],
@@ -33,7 +33,7 @@ describe('QuestionFormComponentTest', () => {
 				}
 			}]
 		}).compileComponents();
-	});
+	}));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(QuestionFormComponent);

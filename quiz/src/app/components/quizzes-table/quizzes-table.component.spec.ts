@@ -16,13 +16,13 @@ describe('QuizzesTableComponentTest', () => {
 	let quizzesService: QuizzesService;
 	let router: Router;
 
-	beforeEach(() => {
+	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule, RouterTestingModule],
 			declarations: [QuizzesTableComponent],
 			providers: [QuizzesService]
 		}).compileComponents();
-	});
+	}));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(QuizzesTableComponent);

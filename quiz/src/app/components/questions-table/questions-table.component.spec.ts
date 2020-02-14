@@ -19,7 +19,7 @@ describe('QuestionTableComponentTest', () => {
 	let questionsService: QuestionsService;
 	let router: Router;
 
-	beforeEach(() => {
+	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule, RouterTestingModule],
 			declarations: [QuestionsTableComponent, PaginationComponent],
@@ -27,7 +27,7 @@ describe('QuestionTableComponentTest', () => {
 				provide: ActivatedRoute, useValue: { snapshot: { params: { page: 1, size: 10 } } }
 			}]
 		}).compileComponents();
-	});
+	}));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(QuestionsTableComponent);
