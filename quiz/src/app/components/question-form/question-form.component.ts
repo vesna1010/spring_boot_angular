@@ -50,7 +50,7 @@ export class QuestionFormComponent implements OnInit, DoCheck {
 	}
 
 	ngDoCheck(): void {
-		if (this.quizzes && this.question) {
+		if (this.quizzes && this.question && this.question.quiz) {
 			const quiz: IQuiz = this.quizzes.filter((value) => value.id === this.question.quiz.id).pop();
 
 			this.question.quiz = quiz;
