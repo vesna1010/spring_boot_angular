@@ -33,4 +33,8 @@ export class QuizzesTableComponent implements OnInit {
 		this.router.navigateByUrl('/quizzes/form/' + id);
 	}
 
+	getKey(index: number, quiz: IQuiz) {
+		return quiz.id;
+	}
+
 }

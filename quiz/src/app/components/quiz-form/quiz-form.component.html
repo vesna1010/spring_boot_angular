@@ -3,8 +3,9 @@
 
 <div *ngIf="quiz">
 	<form #quizForm="ngForm" *ngIf="quiz">
+		<input type="hidden" id="id" name="id" #name="ngModel" [(ngModel)]="quiz.id">
 
-		<div class="form-group row">
+		<div class=" form-group row">
 			<label for="name" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">NAME</label>
 			<div class="col-sm-6">
 				<input type="text" id="name" name="name" #name="ngModel" required pattern="^[a-zA-z\s]{5,30}$"

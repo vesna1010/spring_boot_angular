@@ -3,6 +3,8 @@
 
 <div *ngIf="question && quizzes">
 	<form #questionForm="ngForm">
+		<input type="hidden" id="id" name="id" #name="ngModel" [(ngModel)]="question.id">
+
 		<div class="form-group row">
 			<label for="text" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">TEXT</label>
 			<div class="col-sm-6">

@@ -4,6 +4,7 @@ import { IPage } from 'src/app/models/page';
 import { IPageable } from 'src/app/models/pageable';
 import { QuestionsService } from 'src/app/services/questions.service';
 import { Points } from 'src/app/enums/points';
+import { IQuestion } from 'src/app/models/question';
 
 @Component({
 	templateUrl: './questions-table.component.html'
@@ -36,6 +37,10 @@ export class QuestionsTableComponent implements OnInit {
 
 	findQuestionById(id: number): void {
 		this.router.navigateByUrl('/questions/form/' + id);
+	}
+
+	getKey(index: number, question: IQuestion) {
+		return question.id;
 	}
 
 }
