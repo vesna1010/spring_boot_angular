@@ -94,7 +94,8 @@
 		<div class="form-group row">
 			<label for="points" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">POINTS</label>
 			<div class="col-sm-6">
-				<select id="points" name="points" #points="ngModel" [(ngModel)]="question.points" class="form-control">
+				<select id="points" name="points" #points="ngModel" [(ngModel)]="question.points" class="form-control"
+					required>
 					<option [value]=""></option>
 					<option *ngFor="let points of Points | toArray : 'number'" [value]="points">{{points}}
 					</option>
