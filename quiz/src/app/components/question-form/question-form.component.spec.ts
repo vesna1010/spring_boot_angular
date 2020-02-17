@@ -87,8 +87,8 @@ describe('QuestionFormComponentTest', () => {
 			expect(pointsElement.value).toEqual('');
 			expect(quizElement.selectedIndex).toEqual(-1);
 			expect(buttonElement.textContent).toEqual('Save');
-			expect(optionElements[0].textContent).toEqual('Quiz A');
-			expect(optionElements[1].textContent).toEqual('Quiz B');
+			expect(optionElements[1].textContent).toEqual('Quiz A');
+			expect(optionElements[2].textContent).toEqual('Quiz B');
 		});
 
 		component.ngOnInit();
@@ -125,7 +125,7 @@ describe('QuestionFormComponentTest', () => {
 			expect(answerDElement.value).toEqual('Answer D');
 			expect(correctAnswerElement.value).toEqual('B');
 			expect(pointsElement.value).toEqual('20');
-			expect(quizElement.selectedIndex).toEqual(0);
+			expect(quizElement.selectedIndex).toEqual(1);
 			expect(buttonElement.textContent).toEqual('Update');
 		});
 
