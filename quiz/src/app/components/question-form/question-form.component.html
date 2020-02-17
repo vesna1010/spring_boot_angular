@@ -67,6 +67,7 @@
 			<div class="col-sm-6">
 				<select id="correctAnswer" name="correctAnswer" #correctAnswer="ngModel" required
 					[(ngModel)]="question.correctAnswer" class="form-control">
+					<option [value]=""></option>
 					<option *ngFor="let answer of Answer | toArray : 'string'" [value]="answer">{{answer}}
 					</option>
 				</select>
@@ -80,7 +81,8 @@
 		<div class="form-group row">
 			<label for="quiz" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">QUIZ</label>
 			<div class="col-sm-6">
-				<select id="quiz" name="quiz" #quiz="ngModel" [(ngModel)]="question.quiz" class="form-control">
+				<select id="quiz" name="quiz" #quiz="ngModel" [(ngModel)]="question.quiz" class="form-control" required>
+					<option [ngValue]=""></option>
 					<option *ngFor="let quiz of quizzes" [ngValue]="quiz">{{quiz.name}}</option>
 				</select>
 				<div [hidden]="quiz.valid || quiz.pristine" class="text-danger">
@@ -93,6 +95,7 @@
 			<label for="points" class="col-sm-2 offset-sm-2 col-form-label text-right text-white">POINTS</label>
 			<div class="col-sm-6">
 				<select id="points" name="points" #points="ngModel" [(ngModel)]="question.points" class="form-control">
+					<option [value]=""></option>
 					<option *ngFor="let points of Points | toArray : 'number'" [value]="points">{{points}}
 					</option>
 				</select>
@@ -111,6 +114,5 @@
 				<button type="reset" class="btn btn-light">Reset</button>
 			</div>
 		</div>
-
 	</form>
 </div>
