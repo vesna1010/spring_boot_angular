@@ -11,7 +11,7 @@ import { IQuestion } from 'src/app/models/question';
 })
 export class QuestionsTableComponent implements OnInit {
 	Points = Points;
-	page: IPage;
+	page: IPage<IQuestion>;
 
 	constructor(private questionsService: QuestionsService, private router: Router,
 		private activatedRoute: ActivatedRoute) { }

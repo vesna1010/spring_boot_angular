@@ -6,7 +6,7 @@ import { IPage } from 'src/app/models/page';
 	templateUrl: './pagination.component.html'
 })
 export class PaginationComponent implements OnInit {
-	@Input() page: IPage;
+	@Input() page: IPage<any>;
 	@Input() url: string;
 	numbers: number[];
 

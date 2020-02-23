@@ -1,5 +1,5 @@
-export interface IPage {
-	content: any[];
+export interface IPage<T> {
+	content: T[];
 	number: number;
 	size: number;
 	totalPages: number;

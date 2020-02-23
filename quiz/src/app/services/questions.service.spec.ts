@@ -54,7 +54,7 @@ describe('QuestionsServiceTest', () => {
 
 	it('should retrive questions by page', () => {
 		const pageable: IPageable = { page: 0, size: 10, sort: 'id' };
-		const page: IPage = {
+		const page: IPage<IQuestion> = {
 			content: [
 				{
 					id: 1, text: 'Question A', answerA: 'Answer A', answerB: 'Answer B',

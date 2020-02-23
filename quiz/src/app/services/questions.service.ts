@@ -17,8 +17,8 @@ export class QuestionsService {
 		return this.http.get<IQuestion[]>((`${this.url}/quiz/${quiz.id}/${size}`), { observe: 'response' });
 	}
 
-	findAllQuestions(pageable: IPageable): Observable<HttpResponse<IPage>> {
-		return this.http.get<IPage>(this.url,
+	findAllQuestions(pageable: IPageable): Observable<HttpResponse<IPage<IQuestion>>> {
+		return this.http.get<IPage<IQuestion>>(this.url,
 			{ params: { page: `${pageable.page}`, size: `${pageable.size}`, sort: pageable.sort }, observe: 'response' });
 	}
 
