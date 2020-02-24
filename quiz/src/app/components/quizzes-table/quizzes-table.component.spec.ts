@@ -92,14 +92,6 @@ describe('QuizzesTableComponentTest', () => {
 		component.deleteQuizById(1);
 	}));
 
-	it('should navigate to "/quizzes/form/1"', () => {
-		const spy = spyOn(router, 'navigateByUrl');
-
-		component.findQuizById(1);
-
-		expect(spy.calls.first().args[0]).toEqual('/quizzes/form/1');
-	});
-
 	afterEach(() => {
 		fixture = null;
 		component = null;

@@ -32,6 +32,8 @@ describe('PaginationComponentTest', () => {
 			content: [], size: 10, number: 0, totalPages: 3, last: false, first: true
 		};
 
+		component.ngOnChanges();
+
 		fixture.detectChanges();
 
 		const aElements: HTMLAnchorElement[] = debugElement.queryAll(By.css('a')).map((el) => el.nativeElement);

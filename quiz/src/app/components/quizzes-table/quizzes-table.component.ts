@@ -29,12 +29,4 @@ export class QuizzesTableComponent implements OnInit {
 			});
 	}
 
-	findQuizById(id: number): void {
-		this.router.navigateByUrl('/quizzes/form/' + id);
-	}
-
-	getKey(index: number, quiz: IQuiz) {
-		return quiz.id;
-	}
-
 }

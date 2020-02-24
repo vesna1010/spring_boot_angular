@@ -26,7 +26,7 @@
 			<td colspan="10" class="text-center">No Data</td>
 		</tr>
 		<ng-container *ngIf="page && page.content.length">
-			<tr *ngFor="let question of page.content; trackBy:getKey">
+			<tr *ngFor="let question of page.content; trackBy:question?.id">
 				<td>{{question.id}}</td>
 				<td>{{question.text}}</td>
 				<td>{{question.answerA}}</td>
@@ -37,7 +37,7 @@
 				<td>{{question.quiz.name}}</td>
 				<td>{{question.points}}</td>
 				<td>
-					<button type="button" class="btn btn-primary" (click)="findQuestionById(question.id)">Edit</button>
+					<a class="btn btn-primary" [routerLink]="['/questions/form', question.id]">Edit</a>
 					<button type="button" class="btn btn-danger"
 						(click)="deleteQuestionById(question.id)">Delete</button>
 				</td>

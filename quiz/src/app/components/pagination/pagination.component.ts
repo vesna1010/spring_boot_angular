@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IPage } from 'src/app/models/page';
 
 @Component({
 	selector: 'pagination',
 	templateUrl: './pagination.component.html'
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnChanges {
 	@Input() page: IPage<any>;
 	@Input() url: string;
 	numbers: number[];
 
-	ngOnInit(): void {
+	ngOnChanges(): void {
 		this.numbers = [];
 
 		for (let i = this.page.number - 2; i <= this.page.number + 2; i++) {

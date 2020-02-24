@@ -24,7 +24,7 @@ describe('QuestionTableComponentTest', () => {
 			imports: [HttpClientTestingModule, RouterTestingModule],
 			declarations: [QuestionsTableComponent, PaginationComponent],
 			providers: [QuestionsService, {
-				provide: ActivatedRoute, useValue: { snapshot: { params: { page: 1, size: 10 } } }
+				provide: ActivatedRoute, useValue: { paramMap: of({ page: 1, size: 10, get(key: string) { return this[key]; } }) }
 			}]
 		}).compileComponents();
 	}));
@@ -122,14 +122,6 @@ describe('QuestionTableComponentTest', () => {
 
 		component.deleteQuestionById(1);
 	}));
-
-	it('should navigate to "/questions/form/1"', () => {
-		const spy = spyOn(router, 'navigateByUrl');
-
-		component.findQuestionById(1);
-
-		expect(spy.calls.first().args[0]).toEqual('/questions/form/1');
-	});
 
 	afterEach(() => {
 		fixture = null;

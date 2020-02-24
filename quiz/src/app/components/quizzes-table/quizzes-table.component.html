@@ -19,11 +19,11 @@
 			<td colspan="3" class="text-center">No Data</td>
 		</tr>
 		<ng-container *ngIf="quizzes && quizzes.length">
-			<tr *ngFor="let quiz of quizzes; trackBy:getKey">
+			<tr *ngFor="let quiz of quizzes; trackBy:quiz?.id">
 				<td>{{quiz.id}}</td>
 				<td>{{quiz.name}}</td>
 				<td>
-					<button type="button" class="btn btn-primary" (click)="findQuizById(quiz.id)">Edit</button>
+					<a class="btn btn-primary" [routerLink]="['/quizzes/form', quiz.id]">Edit</a>
 					<button type="button" class="btn btn-danger" (click)="deleteQuizById(quiz.id)">Delete</button>
 				</td>
 			</tr>
