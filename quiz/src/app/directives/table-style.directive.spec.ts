@@ -23,7 +23,6 @@ class TableStyleTestComponent {
 
 describe('TableStyleDirective', () => {
 	let fixture: ComponentFixture<TableStyleTestComponent>;
-	let component: TableStyleTestComponent;
 	let debugElement: DebugElement;
 
 	beforeEach(() => {
@@ -34,7 +33,6 @@ describe('TableStyleDirective', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TableStyleTestComponent);
-		component = fixture.componentInstance;
 		debugElement = fixture.debugElement;
 	});
 
