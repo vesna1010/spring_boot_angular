@@ -33,6 +33,14 @@ describe('HomeComponentTest', () => {
 		router = TestBed.get(Router);
 	});
 
+	afterEach(() => {
+		fixture = null;
+		component = null;
+		debugElement = null;
+		quizzesService = null;
+		router = null;
+	});
+
 	it('should create component', () => {
 		expect(component).toBeDefined();
 	});
@@ -40,9 +48,7 @@ describe('HomeComponentTest', () => {
 	it('should show "Loading data. Please wait..."', () => {
 		fixture.detectChanges();
 
-		const divElement: HTMLDivElement = debugElement.query(By.css('div')).nativeElement;
-
-		expect(divElement.textContent).toEqual('Loading data. Please wait...');
+		expect(debugElement.query(By.css('div')).nativeElement.textContent).toEqual('Loading data. Please wait...');
 	});
 
 	it('should show "There is no quizzes for play"', () => {
@@ -50,52 +56,48 @@ describe('HomeComponentTest', () => {
 
 		fixture.detectChanges();
 
-		const divElement: HTMLDivElement = debugElement.query(By.css('div')).nativeElement;
-
-		expect(divElement.textContent).toEqual('There is no quizzes for play.');
+		expect(debugElement.query(By.css('div')).nativeElement.textContent).toEqual('There is no quizzes for play.');
 	});
 
-	it('should show quizzes in form', async(() => {
-		const spyQuizzesService = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
+	it('should show quizzes in form', () => {
+		component.quizzes = [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }];
+
+		fixture.detectChanges();
+
+		const debugElements: DebugElement[] = debugElement.queryAll(By.css('option'));
+
+		expect(debugElements.length).toEqual(2);
+		expect(debugElements[0].nativeElement.textContent).toEqual('Quiz A');
+		expect(debugElements[1].nativeElement.textContent).toEqual('Quiz B');
+	});
+
+	it('should init quizzes', async(() => {
+		const spy1 = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
 			body: [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }]
 		})));
-		const spyLocalStorage = spyOn(localStorage, 'removeItem');
+		const spy2 = spyOn(localStorage, 'removeItem');
 
 		fixture.whenStable().then(() => {
 			fixture.detectChanges();
 
-			const optionElements: HTMLOptionElement[] = debugElement.queryAll(By.css('option')).map((el) => el.nativeElement);
-
-			expect(optionElements.length).toEqual(2);
-			expect(optionElements[0].textContent).toEqual('Quiz A');
-			expect(optionElements[1].textContent).toEqual('Quiz B');
-
-			expect(spyQuizzesService.calls.first().args[0]).toEqual({ sort: 'name' });
-			expect(spyLocalStorage.calls.first().args[0]).toEqual('quiz');
+			expect(spy1).toHaveBeenCalledWith({ sort: 'name' });
+			expect(spy2).toHaveBeenCalledWith('quiz');
+			expect(component.quizzes.length).toEqual(2);
 		});
 
 		component.ngOnInit();
 	}));
 
 	it('sholuld navigate to "/play"', () => {
-		const spyLocalStorage = spyOn(localStorage, 'setItem');
-		const spyRouter = spyOn(router, 'navigateByUrl');
-
 		component.quiz = { id: 1, name: 'Quiz' };
+
+		const spy1 = spyOn(localStorage, 'setItem');
+		const spy2 = spyOn(router, 'navigateByUrl');
 
 		component.setQuiz();
 
-		expect(spyLocalStorage.calls.first().args[0]).toEqual('quiz');
-		expect(spyLocalStorage.calls.first().args[1]).toEqual(JSON.stringify({ id: 1, name: 'Quiz' }));
-		expect(spyRouter.calls.first().args[0]).toEqual('/play');
-	});
-
-	afterEach(() => {
-		fixture = null;
-		component = null;
-		debugElement = null;
-		quizzesService = null;
-		router = null;
+		expect(spy1).toHaveBeenCalledWith('quiz', JSON.stringify({ id: 1, name: 'Quiz' }));
+		expect(spy2).toHaveBeenCalledWith('/play');
 	});
 
 });
