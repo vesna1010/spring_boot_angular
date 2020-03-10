@@ -37,6 +37,14 @@ describe('QuestionTableComponentTest', () => {
 		router = TestBed.get(Router);
 	});
 
+	afterEach(() => {
+		fixture = null;
+		component = null;
+		debugElement = null;
+		questionsService = null;
+		router = null;
+	});
+
 	it('should create component', () => {
 		expect(component).toBeDefined();
 	});
@@ -44,29 +52,38 @@ describe('QuestionTableComponentTest', () => {
 	it('should show "Loading data. Please wait.."', () => {
 		fixture.detectChanges();
 
-		const trElement: HTMLTableRowElement = debugElement.query(By.css('table tbody tr')).nativeElement;
-
-		expect(trElement.textContent).toEqual('Loading data. Please wait...');
+		expect(debugElement.query(By.css('td')).nativeElement.textContent).toEqual('Loading data. Please wait...');
 	});
 
 	it('should show "No Data"', () => {
+		component.page = { content: [], number: 0, size: 10, totalPages: 0, last: true, first: true };
+
+		fixture.detectChanges();
+
+		expect(debugElement.query(By.css('td')).nativeElement.textContent).toEqual('No Data');
+	});
+
+	it('should show questions', () => {
 		component.page = {
-			content: [],
-			number: 0,
-			size: 10,
-			totalPages: 0,
-			last: true,
-			first: true
+			content: [
+				{
+					id: 1, text: 'Question A', answerA: 'Answer A', answerB: 'Answer B',
+					answerC: 'Answer C', answerD: 'Answer D', correctAnswer: Answer.A, points: Points.TEN, quiz: { id: 1, name: 'Quiz' }
+				}, {
+					id: 2, text: 'Question B', answerA: 'Answer A', answerB: 'Answer B',
+					answerC: 'Answer C', answerD: 'Answer D', correctAnswer: Answer.A, points: Points.TEN, quiz: { id: 1, name: 'Quiz' }
+				}], size: 10, number: 0, totalPages: 1, last: true, first: true
 		};
 
 		fixture.detectChanges();
 
-		const trElement: HTMLTableRowElement = debugElement.query(By.css('table tbody tr')).nativeElement;
+		const debugElements: DebugElement[] = debugElement.queryAll(By.css('td'));
 
-		expect(trElement.textContent).toEqual('No Data');
+		expect(debugElements[1].nativeElement.textContent).toEqual('Question A');
+		expect(debugElements[11].nativeElement.textContent).toEqual('Question B');
 	});
 
-	it('should show questions', async(() => {
+	it('should init questions', async(() => {
 		const spy = spyOn(questionsService, 'findAllQuestions').and.returnValue(of(new HttpResponse({
 			body: {
 				content: [
@@ -83,22 +100,17 @@ describe('QuestionTableComponentTest', () => {
 		fixture.whenStable().then(() => {
 			fixture.detectChanges();
 
-			const trElements: HTMLTableRowElement[] = debugElement.queryAll(By.css('table tbody tr')).map((el) => el.nativeElement);
-
-			expect(trElements.length).toEqual(2);
-			expect(trElements[0].innerHTML).toContain('<td>Question A</td>');
-			expect(trElements[1].innerHTML).toContain('<td>Question B</td>');
-
-			expect(spy.calls.first().args[0]).toEqual({ page: 1, size: 10, sort: 'id' });
+			expect(spy).toHaveBeenCalledWith({ page: 1, size: 10, sort: 'id' });
+			expect(component.page.content.length).toEqual(2);
 		});
 
 		component.ngOnInit();
 	}));
 
 	it('should delete question by id', async(() => {
-		const spyQuestionsServiceDeleteQuestionById = spyOn(questionsService, 'deleteQuestionById').and.returnValue(of(new HttpResponse()));
-		const spyAlert = spyOn(window, 'alert');
-		const spyQuestionsSericefindAllQuestions = spyOn(questionsService, 'findAllQuestions').and.returnValue(of(new HttpResponse({
+		const spy1 = spyOn(questionsService, 'deleteQuestionById').and.returnValue(of(new HttpResponse()));
+		const spy2 = spyOn(window, 'alert');
+		const spy3 = spyOn(questionsService, 'findAllQuestions').and.returnValue(of(new HttpResponse({
 			body: {
 				content: [
 					{
@@ -114,21 +126,13 @@ describe('QuestionTableComponentTest', () => {
 		fixture.whenStable().then(() => {
 			fixture.detectChanges();
 
-			expect(spyQuestionsServiceDeleteQuestionById.calls.first().args[0]).toEqual(1);
-			expect(spyAlert.calls.first().args[0]).toEqual('Your Data Has Been Successfully Deleted.');
-			expect(spyQuestionsSericefindAllQuestions.calls.first().args[0]).toEqual({ page: 1, size: 10, sort: 'id' });
+			expect(spy1).toHaveBeenCalledWith(1);
+			expect(spy2).toHaveBeenCalledWith('Your Data Has Been Successfully Deleted.');
+			expect(spy3).toHaveBeenCalledWith({ page: 1, size: 10, sort: 'id' });
 			expect(component.page.content.length).toEqual(2);
 		});
 
 		component.deleteQuestionById(1);
 	}));
-
-	afterEach(() => {
-		fixture = null;
-		component = null;
-		debugElement = null;
-		questionsService = null;
-		router = null;
-	});
 
 });
