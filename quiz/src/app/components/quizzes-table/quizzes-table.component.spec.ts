@@ -32,66 +32,6 @@ describe('QuizzesTableComponentTest', () => {
 		router = TestBed.get(Router);
 	});
 
-	it('should create component', () => {
-		expect(component).toBeDefined();
-	});
-
-	it('should show "Loading data. Please wait.."', () => {
-		fixture.detectChanges();
-
-		const trElement: HTMLTableRowElement = debugElement.query(By.css('table tbody tr')).nativeElement;
-
-		expect(trElement.textContent).toEqual('Loading data. Please wait...');
-	});
-
-	it('should show "No Data"', () => {
-		component.quizzes = [];
-
-		fixture.detectChanges();
-
-		const trElement: HTMLTableRowElement = debugElement.query(By.css('table tbody tr')).nativeElement;
-
-		expect(trElement.textContent).toEqual('No Data');
-	});
-
-	it('should show quizzes', async(() => {
-		const spy = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
-			body: [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }]
-		})));
-
-		fixture.whenStable().then(() => {
-			fixture.detectChanges();
-
-			const trElements: HTMLTableRowElement[] = debugElement.queryAll(By.css('table tbody tr')).map((elem) => elem.nativeElement);
-
-			expect(trElements.length).toEqual(2);
-			expect(trElements[0].innerHTML).toContain('<td>Quiz A</td>');
-			expect(trElements[1].innerHTML).toContain('<td>Quiz B</td>');
-
-			expect(spy.calls.first().args[0]).toEqual({ sort: 'id' });
-		});
-
-		component.ngOnInit();
-	}));
-
-	it('should delete quiz by id', async(() => {
-		const spyQuizzesServiceDeleteQuizById = spyOn(quizzesService, 'deleteQuizById').and.returnValue(of(new HttpResponse()));
-		const spyAlert = spyOn(window, 'alert');
-		const spyQuizzesServicefindAllQuizzes = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
-			body: [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }]
-		})));
-
-		fixture.whenStable().then(() => {
-			fixture.detectChanges();
-
-			expect(spyQuizzesServiceDeleteQuizById.calls.first().args[0]).toEqual(1);
-			expect(spyAlert.calls.first().args[0]).toEqual('Your Data Has Been Successfully Deleted.');
-			expect(component.quizzes.length).toEqual(2);
-		});
-
-		component.deleteQuizById(1);
-	}));
-
 	afterEach(() => {
 		fixture = null;
 		component = null;
@@ -99,5 +39,68 @@ describe('QuizzesTableComponentTest', () => {
 		quizzesService = null;
 		router = null;
 	});
+
+	it('should create component', () => {
+		expect(component).toBeDefined();
+	});
+
+	it('should show "Loading data. Please wait.."', () => {
+		fixture.detectChanges();
+
+		expect(debugElement.query(By.css('td')).nativeElement.textContent).toEqual('Loading data. Please wait...');
+	});
+
+	it('should show "No Data"', () => {
+		component.quizzes = [];
+
+		fixture.detectChanges();
+
+		expect(debugElement.query(By.css('td')).nativeElement.textContent).toEqual('No Data');
+	});
+
+	it('should show quizzes', () => {
+		component.quizzes = [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }];
+
+		fixture.detectChanges();
+
+		const debugElements: DebugElement[] = debugElement.queryAll(By.css('td'));
+
+		expect(debugElements[1].nativeElement.textContent).toEqual('Quiz A');
+		expect(debugElements[4].nativeElement.textContent).toEqual('Quiz B');
+	});
+
+	it('should init quizzes', async(() => {
+		const spy = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
+			body: [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }]
+		})));
+
+		fixture.whenStable().then(() => {
+			fixture.detectChanges();
+
+			expect(spy).toHaveBeenCalledWith({ sort: 'id' });
+			expect(component.quizzes.length).toEqual(2);
+		});
+
+		component.ngOnInit();
+	}));
+
+	it('should delete quiz by id', async(() => {
+		const spy1 = spyOn(quizzesService, 'deleteQuizById').and.returnValue(of(new HttpResponse()));
+		const spy2 = spyOn(window, 'alert');
+		const spy3 = spyOn(quizzesService, 'findAllQuizzes').and.returnValue(of(new HttpResponse({
+			body: [{ id: 1, name: 'Quiz A' }, { id: 2, name: 'Quiz B' }]
+		})));
+
+		fixture.whenStable().then(() => {
+			fixture.detectChanges();
+
+			expect(spy1).toHaveBeenCalledWith(1);
+			expect(spy2).toHaveBeenCalledWith('Your Data Has Been Successfully Deleted.');
+			expect(spy3).toHaveBeenCalledWith({ sort: 'id' });
+			expect(component.quizzes.length).toEqual(2);
+		});
+
+		component.deleteQuizById(1);
+	}));
 
 });
