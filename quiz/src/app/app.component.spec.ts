@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 
 describe('AppComponentTest', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -12,8 +12,9 @@ describe('AppComponentTest', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent]
+      imports: [
+        AppModule
+      ]
     }).compileComponents();
   }));
 
@@ -28,52 +29,58 @@ describe('AppComponentTest', () => {
     expect(component).toBeDefined();
   });
 
-  it('should show quizzes', () => {
-    router.navigateByUrl('/quizzes').then(() => {
-      expect(location.path).toBe('quizzes');
+  it('should show home page', async(() => {
+    router.navigate(['']).then(() => {
+      expect(location.path()).toBe('');
     });
-  });
+  }));
 
-  it('should show questions', () => {
-    router.navigateByUrl('/questions').then(() => {
-      expect(location.path).toBe('questions-table');
+  it('should show play', async(() => {
+    router.navigate(['play']).then(() => {
+      expect(location.path()).toBe('/play');
     });
-  });
+  }));
 
-  it('should show questions with page and size', () => {
-    router.navigateByUrl('/questions/1/10').then(() => {
-      expect(location.path).toBe('questions/:page/:size');
+  it('should show quizzes', async(() => {
+    router.navigate(['quizzes']).then(() => {
+      expect(location.path()).toBe('/quizzes');
     });
-  });
+  }));
 
-  it('should show quizzes form', () => {
-    router.navigateByUrl('/quizzes/form').then(() => {
-      expect(location.path).toBe('quizzes/form');
+  it('should show quizzes form', async(() => {
+    router.navigate(['quizzes/form']).then(() => {
+      expect(location.path()).toBe('/quizzes/form');
     });
-  });
+  }));
 
-  it('should show quizzes form with quiz', () => {
-    router.navigateByUrl('/quizzes/form/1').then(() => {
-      expect(location.path).toBe('quizzes/form/:id');
+  it('should show quizzes form with quiz', async(() => {
+    router.navigate(['quizzes/form', 1]).then(() => {
+      expect(location.path()).toBe('/quizzes/form/1');
     });
-  });
+  }));
 
-  it('should show questions form', () => {
-    router.navigateByUrl('/questions/form').then(() => {
-      expect(location.path).toBe('questions/form');
+  it('should show questions', async(() => {
+    router.navigate(['questions']).then(() => {
+      expect(location.path()).toBe('/questions');
     });
-  });
+  }));
 
-  it('should show questions form with question', () => {
-    router.navigateByUrl('/questions/form/1').then(() => {
-      expect(location.path).toBe('questions/form/:id');
+  it('should show questions with page and size', async(() => {
+    router.navigate(['questions', 1, 10]).then(() => {
+      expect(location.path()).toBe('/questions/1/10');
     });
-  });
+  }));
 
-  it('should show play', () => {
-    router.navigateByUrl('/play').then(() => {
-      expect(location.path).toBe('play');
+  it('should show questions form', async(() => {
+    router.navigate(['questions/form']).then(() => {
+      expect(location.path()).toBe('/questions/form');
     });
-  });
+  }));
+
+  it('should show questions form with question', async(() => {
+    router.navigate(['questions/form', 1]).then(() => {
+      expect(location.path()).toBe('/questions/form/1');
+    });
+  }));
 
 });
