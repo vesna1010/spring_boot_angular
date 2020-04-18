@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { QuizzesService } from 'src/app/services/quizzes.service';
 import { IQuiz } from 'src/app/models/quiz';
 import { ISort } from 'src/app/models/sort';
@@ -10,7 +9,7 @@ import { ISort } from 'src/app/models/sort';
 export class QuizzesTableComponent implements OnInit {
 	quizzes: IQuiz[];
 
-	constructor(private quizzesService: QuizzesService, private router: Router) { }
+	constructor(private quizzesService: QuizzesService) { }
 
 	ngOnInit(): void {
 		const sort: ISort = { sort: 'id' };
