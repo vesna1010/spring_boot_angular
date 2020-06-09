@@ -20,14 +20,29 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent, QuizzesTableComponent, QuizFormComponent, QuestionsTableComponent,
-    QuestionFormComponent, PlayQuizComponent, HomeComponent, PageNotFoundComponent,
-    ShowQuestionComponent, TableStyleDirective, PaginationComponent, ToArrayPipe
+    AppComponent, 
+    QuizzesTableComponent, 
+    QuizFormComponent, 
+    QuestionsTableComponent,
+    QuestionFormComponent, 
+    PlayQuizComponent, 
+    HomeComponent, 
+    PageNotFoundComponent,
+    ShowQuestionComponent, 
+    TableStyleDirective, 
+    PaginationComponent, 
+    ToArrayPipe
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, AppRoutingModule
+    BrowserModule, 
+    FormsModule, 
+    HttpClientModule, 
+    AppRoutingModule
   ],
-  providers: [QuizzesService, QuestionsService],
+  providers: [
+    QuizzesService, 
+    QuestionsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
